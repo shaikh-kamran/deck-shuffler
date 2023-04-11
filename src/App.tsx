@@ -37,18 +37,11 @@ function App() {
     //Starting from last Index
     const currentIndex = carddeck.length - index - 1;
     //get a random number between 0 and current pointer
-    const randomIndex = getRandomArbitrary(0, currentIndex);
+    const randomIndex = Math.floor(Math.random() * (currentIndex + 1));
     //swap the random index value and current index value
     [carddeck[currentIndex], carddeck[randomIndex]] = [carddeck[randomIndex], carddeck[currentIndex]];
     //return current index value which will be random index value
     return carddeck[currentIndex];
-  }
-
-  //Choose a random number in array length
-  const getRandomArbitrary = (min: number, max: number) => {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
   return (
