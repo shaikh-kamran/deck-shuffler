@@ -9,6 +9,10 @@ const CardsWrapper = () => {
     const [allcards, setAllCards] = useState<ICard[]>([]);
     const [randomcards, setRandomCards] = useState<ICard[]>([]);
 
+    /**
+     * Creates an empty random deck Array
+     * Create an array in which all cards are placed in sequence
+     */
     useEffect(() => {
         //Creating an Empty Card Deck
         const cards = new Array(52).fill({});
@@ -23,6 +27,9 @@ const CardsWrapper = () => {
         setAllCards([...allcards]);
     }, []);
 
+    /**
+     * Creates an array of Card object in which all elements are choosen randomly from the normal deck
+     */
     const createRandomDeck = () => {
         var carddeck = JSON.parse(JSON.stringify(allcards));
         //Filling each place with random card from normal Deck
@@ -30,6 +37,12 @@ const CardsWrapper = () => {
         setRandomCards([...cards]);
     }
 
+    /**
+     * function choose a random card from the deck
+     * @param carddeck - Array of card object
+     * @param index - Index of card where random card will be placed
+     * @returns - an object of Card
+     */
     const getRandomCard = (carddeck: ICard[], index: number) => {
         //Starting from last Index
         const currentIndex = carddeck.length - index - 1;

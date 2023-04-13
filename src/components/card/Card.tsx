@@ -14,6 +14,7 @@ const Card = ({ cardData, index }: ICardProps) => {
                 cardData && cardData.name ?
                     <div className={styles.content_inner}>
                         <div className={styles.top_section} style={{ color: cardData ? cardData.color : 'transparent' }}>
+                            {/* Show the Top number and symbol part of the Card */}
                             <div className={styles.top_symbol}>
                                 <p>{cardData.number}</p>
                                 <span className={styles.top_symbol_sigle}>{cardData.symbol}</span>
@@ -21,6 +22,8 @@ const Card = ({ cardData, index }: ICardProps) => {
                             <div />
                         </div>
                         <div className={styles.center_section} style={{ color: cardData ? cardData.color : 'transparent' }}>
+                            {/* Show the Center part of the Card */}
+                            {/* It shows no of symbols as per number on the card */}
                             {
                                 Number(cardData.number) ?
                                     <div className={styles[`grid_${cardData.number}`]}>
@@ -42,6 +45,7 @@ const Card = ({ cardData, index }: ICardProps) => {
                         </div>
                         <div className={styles.bottom_section} style={{ color: cardData ? cardData.color : 'transparent' }}>
                             <div />
+                            {/* Show the Bottom number and symbol part of the Card */}
                             <div className={styles.bottom_symbol}>
                                 <span className={styles.bottom_symbol_sigle}>{cardData.symbol}</span>
                                 <p>{cardData.number}</p>
