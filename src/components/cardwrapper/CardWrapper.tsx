@@ -1,14 +1,50 @@
+import { useEffect, useState } from 'react'
 import Card from "../card/Card";
 import { ICard } from "../../interfaces/interface";
 import styles from './cardwrapper.module.scss';
-interface ICardsProps {
-    cards: ICard[];
-}
+import { symbols, numbers } from "../../data";
 
-const CardsWrapper = ({ cards }: ICardsProps) => {
+const CardsWrapper = () => {
+
+    const [allcards, setAllCards] = useState<ICard[]>([]);
+    const [randomcards, setRandomCards] = useState<ICard[]>([]);
+
+    useEffect(() => {
+        //Creating an Empty Card Deck
+        const cards = new Array(52).fill({});
+        setRandomCards([...cards]);
+        //Preparing Normal Card Deck
+        numbers.forEach(number => {
+            symbols.forEach(symbol => {
+                const color = symbol.name === 'diamond' || symbol.name === 'heart' ? 'red' : 'black';
+                allcards.push({ ...number, ...symbol, color });
+            });
+        });
+        setAllCards([...allcards]);
+    }, []);
+
+    const createRandomDeck = () => {
+        var carddeck = JSON.parse(JSON.stringify(allcards));
+        //Filling each place with random card from normal Deck
+        const cards = randomcards.map((element, index) => getRandomCard(carddeck, index));;
+        setRandomCards([...cards]);
+    }
+
+    const getRandomCard = (carddeck: ICard[], index: number) => {
+        //Starting from last Index
+        const currentIndex = carddeck.length - index - 1;
+        //get a random number between 0 and current pointer
+        const randomIndex = Math.floor(Math.random() * (currentIndex + 1));
+        //swap the random index value and current index value
+        [carddeck[currentIndex], carddeck[randomIndex]] = [carddeck[randomIndex], carddeck[currentIndex]];
+        //return current index value which will be random index value
+        return carddeck[currentIndex];
+    }
+
     return (
         <div className={styles.card_wrapper}>
-            {cards.map((card, index) => {
+            <button onClick={() => createRandomDeck()}>Shuffle</button>
+            {randomcards.map((card, index) => {
                 return <Card key={index} index={index} cardData={card} />;
             })}
         </div>
